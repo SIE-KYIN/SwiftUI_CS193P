@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var viewModel: EmojiMemoryGame
+    @ObservedObject var viewModel = EmojiMemoryGame()
     
     var body: some View {
         VStack {
             Text("Memorize!")
-                .font(.largeTitle)
-                .fontWeight(.bold)
                 .foregroundColor(.gray)
+                .fontWeight(.bold)
+                .font(.largeTitle)
             
             ScrollView {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))]){
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))]) {
                     ForEach(viewModel.cards) { card in
                         CardView(card: card)
                             .aspectRatio(2/3, contentMode: .fit)
@@ -33,7 +33,6 @@ struct ContentView: View {
     }
 }
 
-
 struct CardView: View {
     let card: MemoryGame<String>.Card
     
@@ -44,12 +43,15 @@ struct CardView: View {
                 shape.fill().foregroundColor(.white)
                 shape.strokeBorder()
                 Text(card.content).font(.largeTitle)
+            } else if card.isMatched {
+                shape.opacity(0)
             } else {
                 shape.fill().foregroundColor(.black)
             }
         }
     }
 }
+
 
 
 struct ContentView_Previews: PreviewProvider {

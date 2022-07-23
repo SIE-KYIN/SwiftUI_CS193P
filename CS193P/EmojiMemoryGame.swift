@@ -11,18 +11,18 @@ import SwiftUI
 class EmojiMemoryGame: ObservableObject {
     static let emojis = ["🚗" , "🚕" , "🚙" , "🚌" , "🚎" , "🚐" , "🚒" ,  "🚑", "🚓", "🏎️", "🛻" , "🚚" , "🚜" , "🚛" , "🛵" , "🚲" , "🛴" , "🚠" , "🚝" , "🚃" , "🚁" , "🚀" , "🛳️" , "🛸" , "✈️"]
     
-    static func createMemoryGame(_ num: Int) -> MemoryGame<String> {
-        MemoryGame<String>(numberOfPairsOfCards: num) { pairIndex in
+    static func createCard() -> MemoryGame<String> {
+        MemoryGame<String>(numberOfPairsOfCards: 4) { pairIndex in
             emojis[pairIndex]
         }
     }
     
-    @Published private var model: MemoryGame<String> = createMemoryGame(4)
+    @Published private var model: MemoryGame<String> = createCard()
     
-    var cards: Array<MemoryGame<String>.Card> {
+    var cards: [MemoryGame<String>.Card] {
         model.cards
     }
-        
+    
     func choose(_ card: MemoryGame<String>.Card) {
         model.choose(card)
     }
